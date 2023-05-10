@@ -1,15 +1,16 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-
-        # given a list, find indexes of two numbers that equal the target
-        # iterate through list, start by comparing the first index and its sums
-            # to that of the other numbers
-        # new_list = []
-        hash_map = {}
-
-        for i,n in enumerate(nums):
-            diff = target - n
-            if diff in hash_map:
-                return [hash_map[diff], i]
-            hash_map[n] = i
-        return
+    
+        hash = {}
+        for index, num in enumerate(nums):
+            # print(index,num)
+            difference = target - num
+            if difference not in hash: 
+                hash[num] = index 
+            else: 
+                return [hash[difference], index]
+            
+        return 
+    
+# iterate through, target minus the index. we will get the difference == 7 for the index of 0
+#  {7: 0 , 2: 1}
