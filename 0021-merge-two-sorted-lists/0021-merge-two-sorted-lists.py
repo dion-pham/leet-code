@@ -1,35 +1,32 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def mergeTwoLists(self, list1, list2):
-        """
-        :type list1: Optional[ListNode]
-        :type list2: Optional[ListNode]
-        :rtype: Optional[ListNode]
-        """
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         
-#         set two pointers, one at head of list 1 and one at head of list 2
+# given two heads of sorted LL == give two pointers at the head of each, to which you can move then to progress in LL
+# make a dummy head
+# append one start of LL to the dummy head, then go in alternating order depending on which LL is shorter from that point on
+# if one LL is empty, append the rest of the other LL 
+
+        dummyHead = ListNode()
+        tail = dummyHead
         
-        dummy_head = ListNode(None)
-#       setting tail to first point to dummy_head so that you can append new node
-#       values through tail.next
-        tail = dummy_head
-        current_1 = list1
-        current_2 = list2
-        
-        while current_1 and current_2: 
-            if current_1.val < current_2.val: 
-                tail.next = current_1 
-                current_1 = current_1.next
+        while list1 and list2: 
+            if list1.val < list2.val: 
+                tail.next = list1
+                list1 = list1.next 
             else: 
-                tail.next = current_2
-                current_2 = current_2.next 
+                tail.next = list2
+                list2 = list2.next
             tail = tail.next
-                
-        if current_1: tail.next = current_1
-        if current_2: tail.next = current_2
             
-        return dummy_head.next 
+        if not list1: 
+            tail.next = list2
+        if not list2: 
+            tail.next = list1
+            
+        return dummyHead.next
+        
