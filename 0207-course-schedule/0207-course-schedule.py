@@ -1,36 +1,45 @@
-class Solution(object):
-    def canFinish(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
-        """
-# create adjacency list
-# map every course to an empty list
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        #create an adjacency list for courses
+        #iterate through adj list, 
+            #keep track of visited courses with a set
+            #dfs with recursion to the end of each course   
+                #if any course is already in visited, but youre visiting it again, that means that its not a valid course schedule
+        # return true if the above does not happen
+        
+        courseSchedule = {}
+        for i in range(numCourses):
+            courseSchedule[i] = []
 
-        preMap = { i:[] for i in range(numCourses)}
-
-        for course, prereq in prerequisites: 
-            preMap[course].append(prereq)
-
-    #     visited set to define all the visited courses in the current dfs path
+        for prereq in prerequisites:
+            a,b = prereq
+            courseSchedule[a].append(b)
+            
         visited = set()
+        
         def dfs(self, course):
-            if course in visited: 
-                return False
-    #           because there was a cycle detected
-            if preMap[course] == []:
+            #base case: keep track of visited
+            if course in visited: return False
+            #base case: take into account that if x:[], there are no previous reqs                 for a course
+            if courseSchedule[course] == []:
                 return True
-    #         because there are no reqs for this course
+      
+            
             visited.add(course)
-            for req in preMap[course]:
-                if not dfs(self,req):
+            
+            for prereq in courseSchedule[course]:
+                
+                if not dfs(self,prereq):
                     return False
             visited.remove(course)
-            preMap[course] = []
+            courseSchedule[course] = []
             return True
-
+                
+                
         for course in range(numCourses):
             if not dfs(self, course):
                 return False
+            
         return True
+    
+ 
