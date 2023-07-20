@@ -1,22 +1,22 @@
 class Solution(object):
-    def climbStairs(self,n):
-        return self._climbStairs(n, {})
-
-    def _climbStairs(self, n,memo):
+    def climbStairs(self, n):
         """
         :type n: int
         :rtype: int
         """
 
-#  recursion, take 1 step or take two steps
-#  base case: if n== 0, return the number of steps
-        if n in memo: 
+        # Define the dfs function with memoization
+        def dfs(n, memo):
+            if n < 0:
+                return 0
+            if n == 0:
+                return 1
+            if n in memo:
+                return memo[n]
+
+            # Calculate the result for n and store it in the memo dictionary
+            memo[n] = dfs(n - 1, memo) + dfs(n - 2, memo)
             return memo[n]
 
-        if n < 0:
-            return 0
-        if n == 0: 
-            return 1
-        
-        memo[n] = self._climbStairs(n-1,memo) + self._climbStairs(n-2,memo)
-        return memo[n]
+        # Call the dfs function with an empty memo dictionary
+        return dfs(n, {})
