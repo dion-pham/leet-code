@@ -11,14 +11,24 @@ class Solution:
         #the tail's next pointer (pos) should be null at some point
         #if the tail instead points to a value thats already in the set, then return false
         #return true if otherwise
-
-          nodes = set()
-
-          current = head
-          while current is not None:
-            if current in nodes:
-              return True
-            nodes.add(current)
+        
+        current = head
+        visited = set()
+        
+        while current: 
+            if current in visited: 
+                return True
+            visited.add(current)
             current = current.next
-
-          return False
+        return False
+    
+    
+#       current = head
+#   set_check = set()
+  
+#   while current: 
+#     if current in set_check:
+#       return True
+#     set_check.add(current)
+#     current = current.next
+#   return False
