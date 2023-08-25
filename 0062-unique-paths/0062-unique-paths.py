@@ -1,32 +1,30 @@
-class Solution(object):
-    def uniquePaths(self, m, n):
-        """
-        :type m: int
-        :type n: int
-        :rtype: int
-        """
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        #dp problem
+        #base case: when you get to the bottom right corner
+            #return 1 indicating that that was one unique path
         
-#       robot starts at grid[0][0]
-#       base case returns as 1 added to unique path when it reached bottom right corner
-#       BRC is denoted at when grid[m-1][n-1]
-
-# maybe explore a helper function to see if you reach BRC by going either down or right
-        return self._uniquePaths(m,n,{})
-    def _uniquePaths(self, m,n,memo):
-        pos = (m,n)
-        if pos in memo: 
-            return memo[pos]
+        def dfs(row,col, memo):
+            
+            pos = (row,col)
+            if pos in memo:
+                return memo[pos]
+            
+            if row == m-1 and col == n-1: 
+                memo[pos] =1
+                return memo[pos]            
+            #check if in bounds
+            if row == m or col == n: 
+                memo[pos] = 0
+                return memo[pos]  
+            
+            down = dfs(row+1,col,memo)
+            right = dfs(row,col+1,memo)
+            
+            memo[pos] = down +right
+            return memo[pos]  
         
-        if m == 0 or n == 0:
-            return 0 
-    
-        if m == 1 and n == 1: 
-            return 1
-        
-        down = self._uniquePaths(m-1 , n, memo)
-        right = self._uniquePaths(m, n-1, memo)
-        
-        memo[pos] = down + right
-        return memo[pos]
-        
+        return dfs(0,0, {})
+            
+            
         
