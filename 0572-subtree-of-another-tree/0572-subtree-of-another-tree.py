@@ -1,37 +1,36 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def isSubtree(self, root, subRoot):
-        """
-        :type root: TreeNode
-        :type subRoot: TreeNode
-        :rtype: bool
-        """
-        if not subRoot: 
-            return True 
-#        a null subtree is always a subtree of the root
-        if not root: 
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        #traverse through the root tree
+        #if you reach a node that is the root of the subtree, start helper funciton
+            #helper function: checks that all value are the same
+                #if helper function returns true, return true for outer function
+        def isSameTree(tree1, tree2):
+            if not tree1 and not tree2: 
+                return True
+
+            if tree1 and tree2 and tree1.val == tree2.val: 
+                return isSameTree(tree1.left, tree2.left) and isSameTree(tree1.right,tree2.right)
+
             return False 
-#       a tree cannot be a subtree to a null root 
-        if self.sameTree(root,subRoot):
+            
+            
+        
+        if not subRoot: return True
+        if not root and subRoot: return False
+        
+        
+        if isSameTree(root,subRoot):
             return True
         
-#         call the original function recursively through DFS
-        return self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
+        return self.isSubtree(root.left,subRoot) or self.isSubtree(root.right, subRoot)
+    
+ 
         
         
-        
-        
-    def sameTree(self,root,subRoot):
-#        if both root and subroot are null, a null tree can have a null subtree
-        if not root and not subRoot: 
-            return True 
-#        if both are non-null and the top level vals equal each other, perform a DFS to see if the rest of the tree is the same
-        if root and subRoot and root.val == subRoot.val: 
-            return self.sameTree(root.left,subRoot.left) and self.sameTree(root.right,subRoot.right)
-        
-        return False 
+    
