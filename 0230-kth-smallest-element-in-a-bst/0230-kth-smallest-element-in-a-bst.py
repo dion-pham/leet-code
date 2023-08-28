@@ -19,11 +19,11 @@ class Solution:
         while stack: 
             current = stack.popleft()
             res.append(current.val)
+        
+            if current.left: 
+                stack.append(current.left)
+            if current.right:
+                stack.append(current.right)
             
-            if current.left: stack.append(current.left)
-            if current.right: stack.append(current.right)
-                
-        # print(res)
-        sortedList = sorted(res)
-        return(sortedList[k-1])
- 
+        result = sorted(res)
+        return result[k-1]
