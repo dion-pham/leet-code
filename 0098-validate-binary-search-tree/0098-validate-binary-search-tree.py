@@ -7,19 +7,20 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-#         perform the recursive in order traversal for a BST
-#         append items to a list
-#         if list == list sorted, then it was a valid bst
-
+        
         res = []
-        uniqueVals = set()
+        uniqueCheck = set()
         def traverse(root):
             if root: 
                 traverse(root.left)
                 res.append(root.val)
                 traverse(root.right)
-                
+        
         traverse(root)
-        for num in res: 
-            uniqueVals.add(num)
-        return res == sorted(res) and len(res) == len(uniqueVals)
+        for val in res: 
+            uniqueCheck.add(val)
+        print(res)
+        print (uniqueCheck)
+        
+        return (res) == sorted(res) and len(res) == len(uniqueCheck)
+            
